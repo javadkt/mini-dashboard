@@ -1,46 +1,98 @@
-# Getting Started with Create React App
+### Mini Competition Dashboard (Frontend)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A Binance-inspired dark-theme React + TypeScript frontend for a Mini Competition Dashboard. Backend is not ready; this project ships with a clean, fully-typed mock API you can later replace with real endpoints.
 
-## Available Scripts
+#### Tech Stack
+- React (functional components + hooks)
+- TypeScript
+- React Router v6
+- Styling: CSS (Binance-inspired: dark background + yellow accent `#F0B90B`)
+- Mock API utilities (in-memory)
 
-In the project directory, you can run:
+#### Features
+- Authentication pages: `/register`, `/login`
+  - Register → mock `POST /register` → `{ success: true }`
+  - Login → mock `POST /login` → `{ token: "mock-jwt-token-<email-b64>" }`
+  - On success: token saved to `localStorage` and redirect to `/dashboard`
+  - On error: toast message
+- Dashboard `/dashboard`
+  - Fetch list: mock `GET /competitions`
+  - Card view with name, entry fee, prize pool, participants, Join button
+  - Loading + error states; retry button
+  - Join: mock `POST /competitions/{id}/join` → success or "Already joined"
+  - On success: toast + button becomes "Joined" (disabled), participants +1
+  - Search filter + simple pagination
+- Logout in the header (clears token, redirects to `/login`)
+- Global loading spinner, toast notifications, and an Error Boundary
+- Fully typed API/client and data models
 
-### `npm start`
+#### Project Structure
+```
+src/
+  api/
+    apiClient.ts        # API wrapper (uses mockApi now)
+    auth.ts             # register/login wrappers
+    competitions.ts     # competitions list/join
+  components/
+    Button.tsx
+    CompetitionCard.tsx
+    ErrorBoundary.tsx
+    Header.tsx
+    Spinner.tsx
+    Toast.tsx
+    styles.css          # Theme + component styles
+  hooks/
+    useAuth.tsx         # Auth context + actions
+  pages/
+    Dashboard.tsx
+    Login.tsx
+    Register.tsx
+  router/
+    AppRouter.tsx       # Routing + protected route
+  types/
+    Competition.ts      # Types and ApiResponse
+  utils/
+    events.ts           # Global loading/toast events
+    mockApi.ts          # In-memory mock endpoints
+```
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+#### Mock API Details (utils/mockApi.ts)
+- Endpoints:
+  - `POST /register` → `{ success: true }` or `{ success: false, message }`
+  - `POST /login` → `{ token: string }` or `{ success: false, message }`
+  - `GET /competitions` → `Competition[]` (adds `joined` computed from token)
+  - `POST /competitions/:id/join` → `{ success: true }` or `{ success: false, message }`
+- Auth: expects `Authorization: Bearer <token>` for joining and to compute `joined` states.
+- Storage: in-memory objects inside the browser tab (not persisted across reloads).
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+To replace with a real backend later:
+- Swap calls inside `src/api/apiClient.ts` from `mockFetch` to `fetch`/`axios`.
+- Keep the same method signatures in `src/api/*.ts` so the app code remains unchanged.
 
-### `npm test`
+#### Styling & Theme
+- Dark/black background, yellow accent `#F0B90B`.
+- Clean cards, bold headings, rounded corners, modern crypto look.
+- Applied globally via `src/components/styles.css` and used by all pages/components.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+#### Setup
+1. Install dependencies:
+   ```bash
+   npm install
+   ```
+2. Start the app:
+   ```bash
+   npm start
+   ```
+3. Open http://localhost:3000
 
-### `npm run build`
+#### Usage
+- Register a new user at `/register`, then login at `/login`.
+- After login you will be redirected to `/dashboard`.
+- Use the search field to filter competitions and pagination controls to navigate.
+- Click Join on any competition; subsequent attempts show an error toast (Already joined).
+- Use Logout in the header to clear your session.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+#### Notes
+- This project was bootstrapped with CRA (Create React App) and updated for React Router v6.
+- Global loading and toasts are handled via a small event utility in `src/utils/events.ts`.
+- The error boundary wraps the entire app and shows a friendly error card on failures.
