@@ -4,7 +4,9 @@
 import { Competition, ApiResponse } from '../types/Competition';
 
 // Simulated DB
-let users: { email: string; password: string }[] = [];
+let users: { email: string; password: string }[] = [
+  { email: 'demo@demo.com', password: 'demo123' },
+];
 let competitions: Competition[] = [
   { id: 1, name: 'Weekly Crypto Contest', entryFee: 10, prizePool: 500, participants: 42 },
   { id: 2, name: 'Pro Trader League', entryFee: 25, prizePool: 1200, participants: 67 },
