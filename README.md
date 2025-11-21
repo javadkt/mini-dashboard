@@ -1,12 +1,12 @@
 ### Mini Competition Dashboard (Frontend)
 
-A Binance-inspired dark-theme React + TypeScript frontend for a Mini Competition Dashboard. Backend is not ready; this project ships with a clean, fully-typed mock API you can later replace with real endpoints.
+React + TypeScript frontend for a Mini Competition Dashboard. Backend is not integrated; this project ships with a clean, fully-typed mock API you can later replace with real endpoints.
 
 #### Tech Stack
 - React (functional components + hooks)
 - TypeScript
 - React Router v6
-- Styling: CSS (Binance-inspired: dark background + yellow accent `#F0B90B`)
+- Styling: CSS (dark background + yellow accent `#F0B90B`)
 - Mock API utilities (in-memory)
 
 #### Features
@@ -19,7 +19,7 @@ A Binance-inspired dark-theme React + TypeScript frontend for a Mini Competition
   - Fetch list: mock `GET /competitions`
   - Card view with name, entry fee, prize pool, participants, Join button
   - Loading + error states; retry button
-  - Join: mock `POST /competitions/{id}/join` → success or "Already joined"
+  - Join: mock `POST /competitions/{id}/join` → success
   - On success: toast + button becomes "Joined" (disabled), participants +1
   - Search filter + simple pagination
 - Logout in the header (clears token, redirects to `/login`)
@@ -89,7 +89,7 @@ To replace with a real backend later:
 - Register a new user at `/register`, then login at `/login`.
 - After login you will be redirected to `/dashboard`.
 - Use the search field to filter competitions and pagination controls to navigate.
-- Click Join on any competition; subsequent attempts show an error toast (Already joined).
+- Click Join on any competition; subsequent attempts show an error toast.
 - Use Logout in the header to clear your session.
 
 #### Notes
