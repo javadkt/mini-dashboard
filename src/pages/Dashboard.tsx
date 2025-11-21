@@ -94,7 +94,7 @@ const Dashboard: React.FC = () => {
         </div>
       )}
 
-      <div className="toolbar" style={{ justifyContent: 'center' }}>
+      <div className="toolbar" style={{ justifyContent: 'center', marginTop: 12 }}>
         <Button variant="secondary" disabled={page <= 1} onClick={() => setPage((p) => Math.max(1, p - 1))}>Prev</Button>
         <span style={{ color: '#9aa4ad' }}>Page {page} / {totalPages}</span>
         <Button variant="secondary" disabled={page >= totalPages} onClick={() => setPage((p) => Math.min(totalPages, p + 1))}>Next</Button>

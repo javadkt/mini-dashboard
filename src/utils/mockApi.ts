@@ -8,12 +8,16 @@ let users: { email: string; password: string }[] = [
   { email: 'demo@demo.com', password: 'demo123' },
 ];
 let competitions: Competition[] = [
-  { id: 1, name: 'Weekly Crypto Contest', entryFee: 10, prizePool: 500, participants: 42 },
-  { id: 2, name: 'Pro Trader League', entryFee: 25, prizePool: 1200, participants: 67 },
-  { id: 3, name: 'Altcoin Sprint', entryFee: 15, prizePool: 800, participants: 51 },
-  { id: 4, name: 'DeFi Masters Cup', entryFee: 50, prizePool: 3000, participants: 23 },
+    {id: 1, name: 'Weekly Crypto Contest', entryFee: 10, prizePool: 500, participants: 42},
+    {id: 2, name: 'Pro Trader League', entryFee: 25, prizePool: 1200, participants: 67},
+    {id: 3, name: 'Altcoin Sprint', entryFee: 15, prizePool: 800, participants: 51},
+    {id: 4, name: 'DeFi Masters Cup', entryFee: 50, prizePool: 3000, participants: 23},
+    {id: 5, name: 'Blockchain Challenge', entryFee: 20, prizePool: 1000, participants: 35},
+    {id: 6, name: 'NFT Trading Tournament', entryFee: 30, prizePool: 1500, participants: 45},
+    {id: 7, name: 'Metaverse Cup', entryFee: 40, prizePool: 2000, participants: 30},
+    {id: 8, name: 'Web3 Warriors League', entryFee: 35, prizePool: 1800, participants: 55},
+    {id: 9, name: 'Crypto Champions', entryFee: 45, prizePool: 2500, participants: 40}
 ];
-
 // token -> set of joined competition ids
 const joinedByToken: Record<string, Set<number>> = {};
 
